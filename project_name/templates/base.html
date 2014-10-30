@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% templatetag openblock %} load static {% templatetag closeblock %}
+<html>
+<head>
+    <head>
+    <title>{% templatetag openblock %} block title {% templatetag closeblock %}{{ project_name }}{% templatetag openblock %} endblock {% templatetag closeblock %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content= 'Direction Informatique - Université de Strasbourg' />
+    <link rel="stylesheet" href="//django-static.u-strasbg.fr/dipstrap/css/bootstrap-unistra.min.css">
+    <link rel="stylesheet" href="//django-static.u-strasbg.fr/dipstrap/css/bootstrap-theme-unistra.min.css">
+    <link rel="stylesheet" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}" type="text/css" title="no title" charset="utf-8" />
+    
+    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    {% templatetag openblock %} block head-javascript {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <img class="pull-left" src="//django-static.u-strasbg.fr/dipstrap/img/unistra-white.png" alt="unistra" />
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">{{ project_name }}</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+    {% templatetag openblock %} block content {% templatetag closeblock %}
+    Contenu de {{ project_name }}
+    {% templatetag openblock %} endblock {% templatetag closeblock %}
+    </div>
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <footer>
+            <div class="container">
+                <p class="navbar-link text-center">&copy; Direction Informatique - Universit&eacute; de Strasbourg - {% templatetag openblock %} now "Y" {% templatetag closeblock %}</p>
+            </div>
+        </footer>
+    </div>
+    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/jquery-1.11.0.min.js"></script>
+    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/bootstrap.min.js"></script>
+    {% templatetag openblock %} block foot-javascript {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
+</body>
+</html>
