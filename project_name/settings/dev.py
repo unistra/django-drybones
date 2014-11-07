@@ -49,3 +49,11 @@ INSTALLED_APPS += (
     'debug_toolbar',
 )
 TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
+
+############
+# Dipstrap #
+############
+
+DIPSTRAP_VERSION = environ.get('DIPSTRAP_VERSION', '')
+if DIPSTRAP_VERSION:
+    DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION

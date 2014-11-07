@@ -134,6 +134,13 @@ STATICFILES_FINDERS = (
 )
 
 
+############
+# Dipstrap #
+############
+
+DIPSTRAP_STATIC_URL = 'http://django-static.u-strasbg.fr/dipstrap/'
+
+
 ##############
 # Secret key #
 ##############

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-{% templatetag openblock %} load static {% templatetag closeblock %}
+{% templatetag openblock %} load staticfiles {% templatetag closeblock %}
+{% templatetag openblock %} load dipstrapfiles {% templatetag closeblock %}
 <html>
 <head>
     <head>
@@ -8,17 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content= 'Direction Informatique - Université de Strasbourg' />
-    <link rel="stylesheet" href="//django-static.u-strasbg.fr/dipstrap/css/bootstrap-unistra.min.css">
-    <link rel="stylesheet" href="//django-static.u-strasbg.fr/dipstrap/css/bootstrap-theme-unistra.min.css">
+    <link rel="stylesheet" href="{% templatetag openblock %} dipstrap 'css/bootstrap-unistra.min.css' {% templatetag closeblock %}">
+    <link rel="stylesheet" href="{% templatetag openblock %} dipstrap 'css/bootstrap-theme-unistra.min.css' {% templatetag closeblock %}">
     <link rel="stylesheet" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}" type="text/css" title="no title" charset="utf-8" />
     
-    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="{% templatetag openblock %} dipstrap 'js/vendor/modernizr-2.6.2-respond-1.1.0.min.js' {% templatetag closeblock %}"></script>
     {% templatetag openblock %} block head-javascript {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 </head>
 
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
-        <img class="pull-left" src="//django-static.u-strasbg.fr/dipstrap/img/unistra-white.png" alt="unistra" />
+        <img class="pull-left" src="{% templatetag openblock %} dipstrap 'img/unistra-white.png' {% templatetag closeblock %}" alt="unistra" />
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -49,8 +50,8 @@
             </div>
         </footer>
     </div>
-    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/jquery-1.11.0.min.js"></script>
-    <script src="//django-static.u-strasbg.fr/dipstrap/js/vendor/bootstrap.min.js"></script>
+    <script src="{% templatetag openblock %} dipstrap 'js/vendor/jquery-1.11.0.min.js' {% templatetag closeblock %}"></script>
+    <script src="{% templatetag openblock %} dipstrap 'js/vendor/bootstrap.min.js' {% templatetag closeblock %}"></script>
     {% templatetag openblock %} block foot-javascript {% templatetag closeblock %}{% templatetag openblock %} endblock {% templatetag closeblock %}
 </body>
 </html>
