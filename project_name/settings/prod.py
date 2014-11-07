@@ -45,4 +45,5 @@ SECRET_KEY = '{% templatetag openvariable %} secret_key {% templatetag closevari
 # Dipstrap #
 ############
 
+DIPSTRAP_VERSION = '{% templatetag openvariable %} dipstrap_version {% templatetag closevariable %}'
 DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION

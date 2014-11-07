@@ -43,4 +43,5 @@ TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 # Dipstrap #
 ############
 
+DIPSTRAP_VERSION = '{% templatetag openvariable %} dipstrap_version {% templatetag closevariable %}'
 DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION

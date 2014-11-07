@@ -29,6 +29,7 @@ env.locale = 'fr_FR.UTF-8'  # locale to use on remote
 env.timezone = 'Europe/Paris'  # timezone for remote
 env.keep_releases = 2  # number of old releases to keep before cleaning
 
+env.dipstrap_version = 'latest'
 # env.oracle_client_version = '11.2'
 # env.oracle_download_url = 'http://librepo.net/lib/oracle/'
 # env.oracle_remote_dir = 'oracle_client'

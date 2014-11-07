@@ -139,7 +139,6 @@ STATICFILES_FINDERS = (
 ############
 
 DIPSTRAP_STATIC_URL = 'http://django-static.u-strasbg.fr/dipstrap/'
-DIPSTRAP_VERSION = 'latest'
 
 
 ##############
