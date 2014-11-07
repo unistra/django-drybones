@@ -45,6 +45,4 @@ SECRET_KEY = '{% templatetag openvariable %} secret_key {% templatetag closevari
 # Dipstrap #
 ############
 
-DIPSTRAP_VERSION = environ.get('DIPSTRAP_VERSION', '')
-if DIPSTRAP_VERSION:
-    DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
+DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
