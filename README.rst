@@ -67,6 +67,7 @@ Lancer le serveur de développement
 
 Pour finaliser l'installation et lancer le serveur::
 
+    $ chmod u+x manage.py
     $ ./manage.py syncdb
     $ ./manage.py migrate
     $ ./manage.py runserver
