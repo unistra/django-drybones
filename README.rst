@@ -42,14 +42,10 @@ Pour configurer le projet dans l'environnement virtuel::
     $ setvirtualenvproject $VIRTUAL_ENV $(pwd)
     
     # Edition du fichier postactivate
-    $ cat >> $VIRTUAL_ENV/bin/postactivate
-    
-    export DJANGO_SETTINGS_MODULE=myapp.settings.dev
-    
+    $ echo "export DJANGO_SETTINGS_MODULE=myapp.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
+
     # Edition du fichier postdeactivate
-    $ cat >> $VIRTUAL_ENV/bin/postdeactivate
-    
-    unset DJANGO_SETTINGS_MODULE
+    $ echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
     
     # Rechargement de l'environnement virtuel
     $ workon my_app

@@ -65,6 +65,7 @@ def dev():
         'web': ['192.168.1.2'],
         'lb': ['192.168.1.2'],
     }
+    env.user = 'vagrant'
     env.backends = env.roledefs['web']
     env.server_name = '{{ project_name }}-dev.net'
     env.short_server_name = '{{ project_name }}-dev'
