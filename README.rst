@@ -75,21 +75,47 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
-    # Usage intpoject project_name
+    # Usage initproject project_name [ -p python_version -d django_version]
+    # example initproject -p 3 -d 1.7
     initproject() {
+        unset PYTHON_VERSION
+        unset PYTHON_PATH
+        unset DJANGO_VERSION
         if [ -z "$1" ];then
             echo -e "Missing argument. Script usage:\n" \
-            "   initproject project_name"
+            "   initproject project_name [ -p python_version -d django_version]" \
+            "   example : initproject -p 3 -d 1.7 "
         else
-            mkvirtualenv $1
-            read -e -p "Which django version to install:" -i "1.6" DJANGO_VERSION
+            PROJECT_NAME=$1
+            ARGS=`getopt --long -o "p:d:" "$@"`
+            eval set -- "$ARGS"
+            while true ; do
+                case "$1" in
+                    -p )
+                        PYTHON_VERSION=$2
+                        shift 2
+                    ;;
+                    -d )
+                        DJANGO_VERSION=$2
+                        shift 2
+                    ;;
+                    *)
+                        break
+                    ;;
+                esac
+            done;
+            PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
+            mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
+            if [ -z "$DJANGO_VERSION" ];then
+                read -e -p "Which django version to install:" -i "1.6" DJANGO_VERSION
+            fi
             pip install Django==$DJANGO_VERSION
-            django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini --name=Makefile $1
-            cd $1
+            django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini --name=Makefile $PROJECT_NAME
+            cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $(pwd)
-            echo "export DJANGO_SETTINGS_MODULE=$1.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
+            echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
             echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
-            workon $1
+            workon $PROJECT_NAME
             pip install -r requirements/dev.txt
         fi
     }
@@ -97,5 +123,9 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
     $ initproject mon_projet
+
+pour preciser la version de python et/ou de django::
+
+    $ initproject mon_projet -p 3 -d 1.7
 
 
