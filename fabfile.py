@@ -22,20 +22,40 @@ env.remote_python_version = ''  # python version
 env.remote_virtualenv_root = join(env.remote_home, '.virtualenvs')  # venv root
 env.remote_virtualenv_dir = join(env.remote_virtualenv_root,
                                  env.application_name)  # venv for webapp dir
-env.remote_repo_url = 'git@git.net:{{ project_name }}.git'  # git repository url
+# git repository url
+env.remote_repo_url = 'git@git.net:{{ project_name }}.git'
 env.local_tmp_dir = '/tmp'  # tmp dir
 env.remote_static_root = '/var/www/static/'  # root of static files
 env.locale = 'fr_FR.UTF-8'  # locale to use on remote
 env.timezone = 'Europe/Paris'  # timezone for remote
 env.keep_releases = 2  # number of old releases to keep before cleaning
-
+env.extra_goals = ['preprod']  # add extra goal(s) to defaults (test,dev,prod)
 env.dipstrap_version = 'latest'
+
+# optional parameters
+
+# env.dest_path = '' # if not set using env_local_tmp_dir
+# env.excluded_files = ['pron.jpg'] # file(s) that rsync should exclude when deploying app
+# env.extra_ppa_to_install = ['ppa:vincent-c/ponysay'] # extra ppa source(s) to use
+# env.extra_pkg_to_install = ['ponysay'] # extra debian/ubuntu package(s) to install on remote
+# env.cfg_shared_files = ['config','/app/path/to/config/config_file'] # config files to be placed in shared config dir
+# env.extra_symlink_dirs = ['mydir','/app/mydir'] # dirs to be symlinked in shared directory
+# env.verbose = True # verbose display for pydiploy default value = True
+# env.req_pydiploy_version = "0.9" # required pydiploy version for this fabfile
+# env.no_config_test = False # avoid config checker if True
+# env.maintenance_text = "" # add a customize maintenance text for maintenance page
+# env.maintenance_title = "" # add a customize title for maintenance page
 # env.oracle_client_version = '11.2'
 # env.oracle_download_url = 'http://librepo.net/lib/oracle/'
 # env.oracle_remote_dir = 'oracle_client'
 # env.oracle_packages = ['instantclient-basic-linux-x86-64-11.2.0.2.0.zip',
 #                        'instantclient-sdk-linux-x86-64-11.2.0.2.0.zip',
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
+#
+# env.circus_package_name = 'https://github.com/githubaccount/circus/archive/master.zip' # change the package to use to install circus
+# env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
+# env.nginx_start_confirmation = True # if True when nginx is not started
+# needs confirmation to start it.
 
 
 @task
@@ -222,9 +242,10 @@ def post_install_frontend():
 
 @roles('web')
 @task
-def install_postgres():
+def install_postgres(user=None, dbname=None, password=None):
     """Install Postgres on remote"""
-    execute(pydiploy.require.database.install_postgres_server)
+    execute(pydiploy.django.install_postgres_server,
+            user=user, dbname=dbname, password=password)
 
 
 @task
@@ -244,3 +265,24 @@ def reload_frontend():
 @task
 def reload_backend():
     execute(pydiploy.django.reload_backend)
+
+
+@roles('lb')
+@task
+def set_down():
+    """ Set app to maintenance mode """
+    execute(pydiploy.django.set_app_down)
+
+
+@roles('lb')
+@task
+def set_up():
+    """ Set app to up mode """
+    execute(pydiploy.django.set_app_up)
+
+
+@roles('web')
+@task
+def custom_manage_cmd(cmd):
+    """ Execute custom command in manage.py """
+    execute(pydiploy.django.custom_manage_command, cmd)
