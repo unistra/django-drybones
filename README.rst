@@ -76,7 +76,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3 -d 1.7
+    # example initproject -p 3 -d 1.6.1
     initproject() {
         unset PYTHON_VERSION
         unset PYTHON_PATH
@@ -84,7 +84,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
         if [ -z "$1" ];then
             echo -e "Missing argument. Script usage:\n" \
             "   initproject project_name [ -p python_version -d django_version]" \
-            "   example : initproject -p 3 -d 1.7 "
+            "   example : initproject -p 3 -d 1.6.1 "
         else
             PROJECT_NAME=$1
             ARGS=`getopt --long -o "p:d:" "$@"`
@@ -107,7 +107,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
             mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
             if [ -z "$DJANGO_VERSION" ];then
-                read -e -p "Which django version to install:" -i "1.6" DJANGO_VERSION
+                $DJANGO_VERSION=1.6
             fi
             pip install Django==$DJANGO_VERSION
             django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini --name=Makefile $PROJECT_NAME
@@ -124,8 +124,8 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
     $ initproject mon_projet
 
-pour preciser la version de python et/ou de django::
+pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3 -d 1.7
+    $ initproject mon_projet -p 3 -d 1.6.1
 
 
