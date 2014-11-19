@@ -40,13 +40,13 @@ Pour configurer le projet dans l'environnement virtuel::
 
     $ cd my_app
     $ setvirtualenvproject $VIRTUAL_ENV $(pwd)
-    
+
     # Edition du fichier postactivate
     $ echo "export DJANGO_SETTINGS_MODULE=myapp.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
 
     # Edition du fichier postdeactivate
     $ echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
-    
+
     # Rechargement de l'environnement virtuel
     $ workon my_app
 
@@ -107,7 +107,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
             mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
             if [ -z "$DJANGO_VERSION" ];then
-                $DJANGO_VERSION=1.6
+                DJANGO_VERSION=1.6
             fi
             pip install Django==$DJANGO_VERSION
             django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini --name=Makefile $PROJECT_NAME
@@ -116,6 +116,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
             echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
             workon $PROJECT_NAME
+            chmod +x manage.py
             pip install -r requirements/dev.txt
         fi
     }
