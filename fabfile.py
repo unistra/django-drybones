@@ -52,7 +52,7 @@ env.dipstrap_version = 'latest'
 #                        'instantclient-sdk-linux-x86-64-11.2.0.2.0.zip',
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
 #
-# env.circus_package_name = 'https://github.com/githubaccount/circus/archive/master.zip' # change the package to use to install circus
+env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
 # env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
 # env.nginx_start_confirmation = True # if True when nginx is not started
 # needs confirmation to start it.
