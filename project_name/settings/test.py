@@ -23,7 +23,7 @@ DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }
 # Log configuration #
 #####################
 
-LOGGING['handlers']['file']['filename'] = '{{ remote_current_path }}/log/app.log'
+LOGGING['handlers']['file']['filename'] = '{% templatetag openvariable %} remote_current_path {% templatetag closevariable %}/log/app.log'
 
 for logger in LOGGING['loggers']:
     LOGGING['loggers'][logger]['level'] = 'DEBUG'
