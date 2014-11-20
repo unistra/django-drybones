@@ -61,7 +61,7 @@ DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
 # Debug toolbar #
 #################
 
-DEBUG_TOOLBAR_PATCH_SETTINGS = True
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
