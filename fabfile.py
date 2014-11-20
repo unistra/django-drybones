@@ -53,6 +53,7 @@ env.dipstrap_version = 'latest'
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
 #
 env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
+# env.no_circus_web = True
 # env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
 # env.nginx_start_confirmation = True # if True when nginx is not started
 # needs confirmation to start it.
@@ -97,6 +98,7 @@ def test():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'test'
     env.socket_port = ''
+    #env.socket_host = 'localhost'
     env.map_settings = {}
     execute(build_env)
 
@@ -119,6 +121,7 @@ def preprod():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'preprod'
     env.socket_port = ''
+    #env.socket_host = 'localhost'
     env.map_settings = {
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_user': "DATABASES['default']['USER']",
@@ -147,6 +150,7 @@ def prod():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'prod'
     env.socket_port = ''
+    #env.socket_host = 'localhost'
     env.map_settings = {
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_user': "DATABASES['default']['USER']",
