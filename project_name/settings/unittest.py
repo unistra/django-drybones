@@ -9,3 +9,23 @@ from .base import *
 #######################
 
 DEBUG = True
+
+
+##########################
+# Database configuration #
+##########################
+
+DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }}.db')
+
+
+#####################
+# Log configuration #
+#####################
+
+LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR',
+        normpath(join('/tmp', 'test_%s.log' % SITE_NAME)))
+LOGGING['handlers']['file']['level'] = 'DEBUG'
+
+for logger in LOGGING['loggers']:
+    LOGGING['loggers'][logger]['level'] = 'DEBUG'
