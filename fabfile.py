@@ -9,7 +9,6 @@ from os.path import join
 import pydiploy
 
 # edit config here !
-env.user = 'root'  # user for ssh
 
 env.remote_owner = 'django'  # remote server user
 env.remote_group = 'di'  # remote server group
@@ -87,6 +86,7 @@ def test():
         'web': ['{{ project_name }}-test.net'],
         'lb': ['lb.{{ project_name }}-test.net'],
     }
+    # env.user = 'root'  # user for ssh
     env.backends = ['127.0.0.1']
     env.server_name = '{{ project_name }}-test.net'
     env.short_server_name = '{{ project_name }}-test'
@@ -110,6 +110,7 @@ def preprod():
         'web': ['{{ project_name }}-pprd.net'],
         'lb': ['lb.{{ project_name }}-pprd.net'],
     }
+    # env.user = 'root'  # user for ssh
     env.backends = env.roledefs['web']
     env.server_name = '{{ project_name }}-pprd.net'
     env.short_server_name = '{{ project_name }}-pprd'
@@ -139,6 +140,7 @@ def prod():
         'web': ['{{ project_name }}.net'],
         'lb': ['lb.{{ project_name }}.net']
     }
+    # env.user = 'root'  # user for ssh
     env.backends = env.roledefs['web']
     env.server_name = '{{ project_name }}.net'
     env.short_server_name = '{{ project_name }}'
