@@ -1,0 +1,4 @@
+[run]
+source = {{ project_name }}/
+omit = {{ project_name }}/settings/*
+       {{ project_name }}/wsgi.py
