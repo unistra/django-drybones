@@ -99,7 +99,7 @@ def test():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'test'
     env.socket_port = ''
-    #env.socket_host = 'localhost'
+    env.socket_host = '127.0.0.1'
     env.map_settings = {}
     execute(build_env)
 
