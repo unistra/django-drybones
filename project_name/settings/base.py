@@ -222,9 +222,7 @@ DJANGO_APPS = (
     # 'django.contrib.admindocs',
 )
 
-THIRD_PARTY_APPS = (
-    'south',
-)
+THIRD_PARTY_APPS = ()
 
 LOCAL_APPS = (
     '{{ project_name }}',

@@ -2,7 +2,7 @@
 Django-drybones
 ========================
 
-Template pour les projets Django 1.6.
+Template pour les projets Django 1.7.
 
 Prérequis
 ===================
@@ -17,14 +17,14 @@ Création de l'environnement virtuel
 
 Pour créer l'environnement virtuel, se placer dans le répertoire d'installation du projet::
 
-    $ mkvirtualenv my_app
+    $ mkvirtualenv myapp
 
 Installation de Django
 ----------------------
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install Django==1.6
+    $ pip install "Django<1.8"
 
 Création du projet
 -------------------
@@ -38,7 +38,7 @@ Configuration du projet
 
 Pour configurer le projet dans l'environnement virtuel::
 
-    $ cd my_app
+    $ cd myapp
     $ setvirtualenvproject $VIRTUAL_ENV $(pwd)
 
     # Edition du fichier postactivate
@@ -76,7 +76,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3 -d 1.6.1
+    # example initproject -p 3 -d 1.7.5
     initproject() {
         unset PYTHON_VERSION
         unset PYTHON_PATH
@@ -84,7 +84,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
         if [ -z "$1" ];then
             echo -e "Missing argument. Script usage:\n" \
             "   initproject project_name [ -p python_version -d django_version]" \
-            "   example : initproject -p 3 -d 1.6.1 "
+            "   example : initproject -p 3 -d 1.7.5 "
         else
             PROJECT_NAME=$1
             ARGS=`getopt --long -o "p:d:" "$@"`
@@ -107,7 +107,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
             mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
             if [ -z "$DJANGO_VERSION" ];then
-                DJANGO_VERSION=1.6
+                DJANGO_VERSION=1.7
             fi
             pip install Django==$DJANGO_VERSION
             django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
@@ -127,6 +127,6 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3 -d 1.6.1
+    $ initproject mon_projet -p 3 -d 1.7.5
 
 
