@@ -24,7 +24,7 @@ Installation de Django
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install "Django<1.8"
+    $ pip install "Django>1.7,<1.8"
 
 Création du projet
 -------------------

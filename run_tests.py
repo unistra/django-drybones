@@ -5,7 +5,10 @@ import os
 import sys
 import inspect
 
+import django
+
 os.environ['DJANGO_SETTINGS_MODULE'] = '{{ project_name }}.settings.unittest'
+django.setup()
 
 from django.test.runner import DiscoverRunner
 
