@@ -24,14 +24,14 @@ Installation de Django
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install Django==1.6
+    $ pip install "Django<1.7"
 
 Création du projet
 -------------------
 
 Pour créer le nouveau projet en utilisant le template::
 
-    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
+    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/django1.6.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
 
 Configuration du projet
 -----------------------
