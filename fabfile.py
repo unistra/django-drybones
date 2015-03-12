@@ -54,6 +54,11 @@ env.verbose_output = False # True for verbose output
 #
 env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
 # env.no_circus_web = True
+# env.circus_backend = 'gevent' # name of circus backend to use
+
+env.chaussette_backend = 'waitress' # name of chaussette backend to use. You need to add this backend in the app requirement file.
+
+
 # env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
 # env.nginx_start_confirmation = True # if True when nginx is not started
 # needs confirmation to start it.
