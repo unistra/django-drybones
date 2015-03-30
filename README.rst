@@ -107,9 +107,10 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
             mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
             if [ -z "$DJANGO_VERSION" ];then
-                DJANGO_VERSION=1.7
+                pip install "Django>1.7,<1.8"
+            else
+                pip install Django==$DJANGO_VERSION
             fi
-            pip install Django==$DJANGO_VERSION
             django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $(pwd)
