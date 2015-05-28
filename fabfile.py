@@ -207,7 +207,7 @@ def pre_install_frontend():
 @task
 def deploy(update_pkg=False):
     """Deploy code on server"""
-    execute(deploy_backend)
+    execute(deploy_backend, update_pkg)
     execute(deploy_frontend)
 
 
@@ -215,7 +215,7 @@ def deploy(update_pkg=False):
 @task
 def deploy_backend(update_pkg=False):
     """Deploy code on server"""
-    execute(pydiploy.django.deploy_backend)
+    execute(pydiploy.django.deploy_backend, update_pkg)
 
 
 @roles('lb')
