@@ -6,7 +6,7 @@ Django-drybones
    :target: https://landscape.io/github/unistra/django-drybones/master
    :alt: Code Health
 
-Template pour les projets Django 1.7.
+Template pour les projets Django 1.8.
 
 Prérequis
 ===================
@@ -28,7 +28,7 @@ Installation de Django
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install "Django>1.7,<1.8"
+    $ pip install "Django>1.8,<1.9"
 
 Création du projet
 -------------------
@@ -80,7 +80,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3 -d 1.7.5
+    # example initproject -p 3 -d 1.8.4
     initproject() {
         unset PYTHON_VERSION
         unset PYTHON_PATH
@@ -88,7 +88,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
         if [ -z "$1" ];then
             echo -e "Missing argument. Script usage:\n" \
             "   initproject project_name [ -p python_version -d django_version]" \
-            "   example : initproject -p 3 -d 1.7.5 "
+            "   example : initproject -p 3 -d 1.8.4 "
         else
             PROJECT_NAME=$1
             ARGS=`getopt --long -o "p:d:" "$@"`
@@ -111,7 +111,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             PYTHON_VERSION_PATH=`which python$PYTHON_VERSION`
             mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
             if [ -z "$DJANGO_VERSION" ];then
-                pip install "Django>1.7,<1.8"
+                pip install "Django>1.8,<1.9"
             else
                 pip install Django==$DJANGO_VERSION
             fi
@@ -132,6 +132,6 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3 -d 1.7.5
+    $ initproject mon_projet -p 3 -d 1.8.4
 
 
