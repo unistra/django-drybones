@@ -52,7 +52,7 @@ env.verbose_output = False # True for verbose output
 #                        'instantclient-sdk-linux-x86-64-11.2.0.2.0.zip',
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
 #
-env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
+# env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
 # env.no_circus_web = True
 # env.circus_backend = 'gevent' # name of circus backend to use
 
