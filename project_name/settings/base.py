@@ -94,6 +94,13 @@ USE_TZ = True
 
 
 #######################
+# locale configuration #
+#######################
+
+LOCALE_PATHS = (normpath(join(DJANGO_ROOT, 'locale')),)
+
+
+#######################
 # Media configuration #
 #######################
 
