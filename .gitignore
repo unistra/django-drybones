@@ -43,3 +43,4 @@ htmlcov/
 .settings
 *.sublime-*
 .fab_tasks~
+*.db
