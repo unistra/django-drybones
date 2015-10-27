@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = [
     # Examples:
-     url(r'^$', home, name='home'),
+    url(r'^$', home, name='home'),
     # url(r'^app/', include('apps.app.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

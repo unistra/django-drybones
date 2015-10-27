@@ -16,7 +16,7 @@ DEBUG = True
 ##########################
 
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }}.db')
+DATABASES['default']['NAME'] = normpath(join(dirname(dirname(SITE_ROOT)), 'shared/default.db'))
 
 
 #####################
@@ -27,16 +27,6 @@ LOGGING['handlers']['file']['filename'] = '{% templatetag openvariable %} remote
 
 for logger in LOGGING['loggers']:
     LOGGING['loggers'][logger]['level'] = 'DEBUG'
-
-
-###########################
-# Unit test configuration #
-###########################
-
-INSTALLED_APPS += (
-    'coverage',
-)
-TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 
 
 ############
