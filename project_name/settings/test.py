@@ -16,7 +16,7 @@ DEBUG = True
 ##########################
 
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }}.db')
+DATABASES['default']['NAME'] = normpath(join(dirname(dirname(SITE_ROOT)), 'shared/default.db'))
 
 
 #####################

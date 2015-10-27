@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-     url(r'^$', '{{ project_name }}.views.home', name='home'),
+    url(r'^$', '{{ project_name }}.views.home', name='home'),
     # url(r'^app/', include('apps.app.urls')),
 
     url(r'^admin/', include(admin.site.urls)),

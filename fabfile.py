@@ -30,7 +30,7 @@ env.timezone = 'Europe/Paris'  # timezone for remote
 env.keep_releases = 2  # number of old releases to keep before cleaning
 env.extra_goals = ['preprod']  # add extra goal(s) to defaults (test,dev,prod)
 env.dipstrap_version = 'latest'
-env.verbose_output = False # True for verbose output
+env.verbose_output = False  # True for verbose output
 
 # optional parameters
 
@@ -56,7 +56,7 @@ env.verbose_output = False # True for verbose output
 # env.no_circus_web = True
 # env.circus_backend = 'gevent' # name of circus backend to use
 
-env.chaussette_backend = 'waitress' # name of chaussette backend to use. You need to add this backend in the app requirement file.
+env.chaussette_backend = 'waitress'  # name of chaussette backend to use. You need to add this backend in the app requirement file.
 
 
 # env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
@@ -99,7 +99,7 @@ def test():
     env.static_folder = '/site_media/'
     env.server_ip = ''
     env.no_shared_sessions = False
-    env.server_ssl_on = False
+    env.server_ssl_on = True
     env.path_to_cert = '/etc/ssl/certs/{{ project_name }}.net.pem'
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'test'
@@ -128,7 +128,6 @@ def preprod():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'preprod'
     env.socket_port = ''
-    #env.socket_host = 'localhost'
     env.map_settings = {
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_user': "DATABASES['default']['USER']",
@@ -158,7 +157,6 @@ def prod():
     env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
     env.goal = 'prod'
     env.socket_port = ''
-    #env.socket_host = 'localhost'
     env.map_settings = {
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_user': "DATABASES['default']['USER']",
