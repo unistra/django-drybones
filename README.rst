@@ -115,7 +115,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             else
                 pip install Django==$DJANGO_VERSION
             fi
-            django-admin.py startproject --template=https://github.com/unistra/django-drybones/tree/django1.8/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+            django-admin.py startproject --template=https://github.com/unistra/django-drybones/tree/master/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $(pwd)
             echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
