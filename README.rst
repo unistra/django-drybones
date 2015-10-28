@@ -35,7 +35,7 @@ Création du projet
 
 Pour créer le nouveau projet en utilisant le template::
 
-    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/django1.8.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
+    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
 
 Configuration du projet
 -----------------------
