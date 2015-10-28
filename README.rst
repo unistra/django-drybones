@@ -110,7 +110,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
                 DJANGO_VERSION=1.6
             fi
             pip install Django==$DJANGO_VERSION
-            django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+            django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/django1.6.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $(pwd)
             echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
