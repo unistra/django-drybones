@@ -1,4 +1,3 @@
 -r common.txt
-psycopg2
 chaussette
 waitress
