@@ -91,7 +91,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
             # TODO: split this message up: make it readable
 
-            test -n $1 || {
+            test -z $1 && {
                     echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.8.4 "
                     return 1
             }
