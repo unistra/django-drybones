@@ -52,7 +52,7 @@ Pour configurer le projet dans l'environnement virtuel::
     $ echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
 
     # Rechargement de l'environnement virtuel
-    $ workon my_app
+    $ workon myapp
 
 Installation des librairies
 ---------------------------
@@ -68,7 +68,6 @@ Lancer le serveur de développement
 Pour finaliser l'installation et lancer le serveur::
 
     $ chmod u+x manage.py
-    $ ./manage.py syncdb
     $ ./manage.py migrate
     $ ./manage.py runserver
 
