@@ -201,7 +201,6 @@ def pre_install_frontend():
     execute(pydiploy.django.pre_install_frontend)
 
 
-@roles('web')
 @task
 def deploy(update_pkg=False):
     """Deploy code on server"""
