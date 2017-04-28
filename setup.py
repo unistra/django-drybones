@@ -22,6 +22,8 @@ def recursive_requirements(requirement_file, libs, links, path=''):
                                        path=path)
             elif requirement.startswith('-f'):
                 links.append(requirement.split()[1])
+            elif requirement.startswith('-e'):
+                links.append(requirement.split()[1])
             else:
                 libs.append(requirement)
 

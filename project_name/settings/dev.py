@@ -27,6 +27,13 @@ DEBUG = True
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 DATABASES['default']['NAME'] = '{{ project_name }}.db'
 
+############################
+# Allowed hosts & Security #
+############################
+
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
 
 #####################
 # Log configuration #

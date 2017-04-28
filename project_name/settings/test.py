@@ -18,6 +18,14 @@ DEBUG = True
 DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 DATABASES['default']['NAME'] = normpath(join(dirname(dirname(SITE_ROOT)), 'shared/default.db'))
 
+############################
+# Allowed hosts & Security #
+############################
+
+ALLOWED_HOSTS = [
+    '.u-strasbg.fr',
+    '.unistra.fr',
+]
 
 #####################
 # Log configuration #
