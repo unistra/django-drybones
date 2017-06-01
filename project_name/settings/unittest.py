@@ -23,7 +23,7 @@ DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }
 ############################
 
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '*'
 ]
 
 #####################

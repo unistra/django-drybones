@@ -32,7 +32,7 @@ DATABASES['default']['NAME'] = '{{ project_name }}.db'
 ############################
 
 ALLOWED_HOSTS = [
-    '127.0.0.1'
+    '*'
 ]
 
 #####################
