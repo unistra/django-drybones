@@ -6,7 +6,7 @@ Django-drybones
    :target: https://landscape.io/github/unistra/django-drybones/master
    :alt: Code Health
 
-Template pour les projets Django 1.8.
+Template pour les projets Django 1.11.
 
 Prérequis
 ===================
@@ -28,14 +28,14 @@ Installation de Django
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install "Django>1.8,<1.9"
+    $ pip install "Django>1.11,<1.12"
 
 Création du projet
 -------------------
 
 Pour créer le nouveau projet en utilisant le template::
 
-    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
+    $ django-admin.py startproject --template=https://github.com/unistra/django-drybones/archive/django1.11.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
 
 Configuration du projet
 -----------------------
@@ -79,7 +79,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3 -d 1.8.4
+    # example initproject -p 3 -d 1.11.1
     initproject () {
 
             # TODO: be sure those variables are required by vitualenv* stuff
@@ -91,12 +91,12 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             # TODO: split this message up: make it readable
 
             test -z $1 && {
-                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.8.4 "
+                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3 -d 1.11.1 "
                     return 1
             }
 
             local PROJECT_NAME=$1
-            local DJANGO_VERSION=${DJANGO_VERSION:=Django>1.8,<1.9}
+            local DJANGO_VERSION=${DJANGO_VERSION:=Django>1.11,<1.12}
 
             local ARGS=`getopt --long -o "p:d:" "$@"`
             eval set -- "$ARGS"
@@ -120,7 +120,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
             pip install "$DJANGO_VERSION"
 
-            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/django1.11.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $PWD
             echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
@@ -136,6 +136,6 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3 -d 1.8.4
+    $ initproject mon_projet -p 3 -d 1.11.1
 
 
