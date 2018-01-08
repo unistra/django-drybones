@@ -1,4 +1,4 @@
 -r common.txt
 psycopg2
 chaussette
-waitress
+waitress==0.9.0
