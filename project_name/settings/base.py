@@ -46,7 +46,7 @@ MANAGERS = ADMINS
 # defaut db connection
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': '{{ project_name }}',
         'USER': '',
         'PASSWORD': '',
@@ -256,8 +256,8 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(levelname)s %(asctime)s %(name)s:%(lineno)s %(message)s'
-         },
-         'django.server': {
+        },
+        'django.server': {
             '()': 'django.utils.log.ServerFormatter',
             'format': '[%(server_time)s] %(message)s',
         },
