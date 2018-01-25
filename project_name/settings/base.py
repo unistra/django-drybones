@@ -24,9 +24,9 @@ TEMPLATE_DEBUG = DEBUG
 # Manager configurations #
 ##########################
 
-ADMINS = (
+ADMINS = [
     # ('Your Name', 'your_email@example.com'),
-)
+]
 
 MANAGERS = ADMINS
 
@@ -36,8 +36,8 @@ MANAGERS = ADMINS
 ##########################
 
 # In your virtualenv, edit the file $VIRTUAL_ENV/bin/postactivate and set
-# properly the environnement variable defined in this file (ie: os.environ[KEY]
-# ex: export LDAP_DB_USER='uid=toto,ou=uds,ou=people,o=annuaire
+# properly the environnement variable defined in this file (ie: os.environ[KEY])
+# ex: export DEFAULT_DB_USER='{{ project_name }}'
 
 # Default values for default database are :
 # engine : sqlite3
@@ -46,12 +46,12 @@ MANAGERS = ADMINS
 # defaut db connection
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '{{ project_name }}',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '{{ project_name }}',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 
@@ -61,7 +61,7 @@ DATABASES = {
 ######################
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+# See https://docs.djangoproject.com/en/1.11/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
 
@@ -97,7 +97,9 @@ USE_TZ = True
 # locale configuration #
 #######################
 
-LOCALE_PATHS = (normpath(join(DJANGO_ROOT, 'locale')),)
+LOCALE_PATHS = [
+    normpath(join(DJANGO_ROOT, 'locale')),
+]
 
 
 #######################
@@ -129,16 +131,16 @@ STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '/site_media/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     normpath(join(DJANGO_ROOT, 'static')),
-)
+]
 
 # List of finder classes that know how to find static files in
 # various locations.
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
+]
 
 
 ############
@@ -187,16 +189,15 @@ TEMPLATES = [
 # Middleware configuration #
 ############################
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+]
 
 
 #####################
@@ -218,7 +219,7 @@ WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 # Application configuration #
 #############################
 
-DJANGO_APPS = (
+DJANGO_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -228,13 +229,13 @@ DJANGO_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin'
     # 'django.contrib.admindocs',
-)
+]
 
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = []
 
-LOCAL_APPS = (
+LOCAL_APPS = [
     '{{ project_name }}',
-)
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -255,17 +256,30 @@ LOGGING = {
     'formatters': {
         'default': {
             'format': '%(levelname)s %(asctime)s %(name)s:%(lineno)s %(message)s'
-         }
+        },
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[%(server_time)s] %(message)s',
+        },
     },
     'filters': {
         'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
     },
     'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler'
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -283,14 +297,13 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['null'],
-            'propagate': True,
-            'level': 'INFO'
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
         },
-        'django.request': {
-            'handlers': ['mail_admins', 'file'],
-            'level': 'ERROR',
-            'propagate': True,
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
         },
         '{{ project_name }}': {
             'handlers': ['mail_admins', 'file'],

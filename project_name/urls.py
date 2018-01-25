@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 
@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^$', home, name='home'),
     # url(r'^app/', include('apps.app.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 ]
 
 # debug toolbar for dev

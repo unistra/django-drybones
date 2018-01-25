@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'{{ project_name }}'
-copyright = u'%s, Direction Informatique' % date.today().strftime("%Y")
+copyright = u'%s, Direction du Numérique' % date.today().strftime("%Y")
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -201,7 +201,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', '{{ project_name }}.tex', u'{{ project_name }} Documentation',
-   u'Direction Informatique', 'manual'),
+   u'Direction du Numérique', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -231,7 +231,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', '{{ project_name }}', u'{{ project_name }} Documentation',
-     [u'Direction Informatique'], 1)
+     [u'Direction du Numérique'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -245,7 +245,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', '{{ project_name }}', u'{{ project_name }} Documentation',
-   u'Direction Informatique', '{{ project_name }}', 'One line description of project.',
+   u'Direction du Numérique', '{{ project_name }}', 'One line description of project.',
    'Miscellaneous'),
 ]
 
