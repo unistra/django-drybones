@@ -2,7 +2,7 @@
 coverage
 sphinx
 pylint
-pep8
+pycodestyle
 django-debug-toolbar
 django-extensions
 tox
