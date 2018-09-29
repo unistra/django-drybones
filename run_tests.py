@@ -16,8 +16,10 @@ from django.test.runner import DiscoverRunner
 Run tests script
 """
 
-test_runner = DiscoverRunner(pattern='tests.py', verbosity=2,
+test_runner = DiscoverRunner(pattern='test_*.py', verbosity=2,
                              interactive=True, failfast=False)
 
-failures = test_runner.run_tests(['{{ project_name }}'])
+test_apps = ['{{ project_name }}']
+test_apps = test_apps if len(sys.argv) <= 1 else sys.argv[1:]
+failures = test_runner.run_tests(test_apps)
 sys.exit(failures)
