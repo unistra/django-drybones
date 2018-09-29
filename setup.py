@@ -27,21 +27,22 @@ def recursive_requirements(requirement_file, libs, links, path=''):
             else:
                 libs.append(requirement)
 
+
 libraries, dependency_links = [], []
 recursive_requirements('requirements.txt', libraries, dependency_links)
 
 setup(
     name='{{ project_name }}',
-    version='0.1',
+    version='0.1.0',
     packages=find_packages(),
     install_requires=libraries,
     dependency_links=dependency_links,
     long_description=long_description,
     description='',
-    author='di-dip-unistra',
-    author_email='di-dip@unistra.fr',
-    maintainer='di-dip-unistra',
-    maintainer_email='di-dip@unistra.fr',
+    author='dnum-dip-unistra',
+    author_email='dnum-dip@unistra.fr',
+    maintainer='dnum-dip-unistra',
+    maintainer_email='dnum-dip@unistra.fr',
     url='',
     download_url='',
     license='PSF',
