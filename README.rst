@@ -137,5 +137,3 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
     $ initproject mon_projet -p 3 -d 1.11.1
-
-
