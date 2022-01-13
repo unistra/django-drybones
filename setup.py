@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-
 import os
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import find_packages, setup
 
 
 with open('README.rst') as readme:

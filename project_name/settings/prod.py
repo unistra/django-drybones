@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from os import environ
-from os.path import normpath
-
 from .base import *
 
 
@@ -33,6 +28,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'ssl')
 #####################
 
 LOGGING['handlers']['file']['filename'] = '{% templatetag openvariable %} remote_current_path {% templatetag closevariable %}/log/app.log'
+
 
 ##############
 # Secret key #

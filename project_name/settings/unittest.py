@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from os import environ
 from os.path import normpath
 from .base import *
@@ -15,23 +13,28 @@ DEBUG = True
 # Database configuration #
 ##########################
 
-DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-DATABASES['default']['NAME'] = environ.get('DEFAULT_DB_NAME', '{{ project_name }}.db')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': environ.get('DEFAULT_DB_TEST_NAME', '{{ project_name }}'),
+        'USER': environ.get('DEFAULT_DB_TEST_USER', '{{ project_name }}'),
+        'PASSWORD': environ.get('DEFAULT_DB_TEST_PASSWORD', '{{ project_name }}'),
+        'HOST': environ.get('DEFAULT_DB_TEST_HOST', 'postgres'),
+        'PORT': environ.get('DEFAULT_DB_TEST_PORT', ''),
+    }
+}
 
 ############################
 # Allowed hosts & Security #
 ############################
 
-ALLOWED_HOSTS = [
-    '*'
-]
+ALLOWED_HOSTS = ['*']
 
 #####################
 # Log configuration #
 #####################
 
-LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR',
-        normpath(join('/tmp', 'test_%s.log' % SITE_NAME)))
+LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR', normpath(join('/tmp', 'test_%s.log' % SITE_NAME)))
 LOGGING['handlers']['file']['level'] = 'DEBUG'
 
 for logger in LOGGING['loggers']:
