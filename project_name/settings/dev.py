@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-
 from os import environ
 from os.path import normpath
+
 from .base import *
+
 
 #######################
 # Debug configuration #
@@ -24,23 +24,30 @@ DEBUG = True
 # name : PROJECT_ROOT_DIR/default.db
 
 
-DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-DATABASES['default']['NAME'] = '{{ project_name }}.db'
+DATABASES = {
+    'default': {
+        'ENGINE': environ.get('DEFAULT_DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': environ.get('DEFAULT_DB_NAME', '{{ project_name }}'),
+        'USER': environ.get('DEFAULT_DB_USER', '{{ project_name }}'),
+        'PASSWORD': environ.get('DEFAULT_DB_PASSWORD', '{{ project_name }}'),
+        'HOST': environ.get('DEFAULT_DB_HOST', 'localhost'),
+        'PORT': environ.get('DEFAULT_DB_PORT', '5432'),
+    }
+}
+
 
 ############################
 # Allowed hosts & Security #
 ############################
 
-ALLOWED_HOSTS = [
-    '*'
-]
+ALLOWED_HOSTS = ['*']
+
 
 #####################
 # Log configuration #
 #####################
 
-LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR',
-        normpath(join('/tmp', '%s.log' % SITE_NAME)))
+LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR', normpath(join('/tmp', '%s.log' % SITE_NAME)))
 LOGGING['handlers']['file']['level'] = 'DEBUG'
 
 for logger in LOGGING['loggers']:
@@ -56,12 +63,14 @@ INSTALLED_APPS += [
     'debug_toolbar',
 ]
 
+
 ############
 # Dipstrap #
 ############
 
 DIPSTRAP_VERSION = environ.get('DIPSTRAP_VERSION', 'latest')
 DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
+
 
 #################
 # Debug toolbar #

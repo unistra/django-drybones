@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from os.path import abspath, basename, dirname, join, normpath
 
 
@@ -231,7 +229,9 @@ DJANGO_APPS = [
     # 'django.contrib.admindocs',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'django_extensions',
+]
 
 LOCAL_APPS = [
     '{{ project_name }}',
@@ -245,6 +245,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 #########################
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+
 
 #####################
 # Log configuration #
