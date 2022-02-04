@@ -53,7 +53,7 @@ env.verbose_output = False  # True for verbose output
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
 #
 # env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
-# env.no_circus_web = True
+env.no_circus_web = True  # Avoid using circusweb dashboard (buggy in last releases)
 # env.circus_backend = 'gevent' # name of circus backend to use
 
 env.chaussette_backend = 'waitress'  # name of chaussette backend to use. You need to add this backend in the app requirement file.
