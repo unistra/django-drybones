@@ -79,46 +79,51 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3.7 -d 3.2
+    # example initproject -p 3.10 -d 3.2
     initproject () {
 
-            # TODO: be sure those variables are required by vitualenv* stuff
+        local PYTHON_VERSION=${DRY_BONES_PYTHON_VERSION:=3.10}
+        local DJANGO_VERSION=${DRY_BONES_DJANGO_VERSION:="3.2"}
+        local PROJECT_NAME=""
 
-            declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.4}
-            declare -g PYTHON_PATH=
-            declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
-
-            # TODO: split this message up: make it readable
-
-            test -z $1 && {
-                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.7 -d 3.2 "
-                    return 1
-            }
-
-            local PROJECT_NAME=$1
-            local DJANGO_VERSION=${DJANGO_VERSION:=Django>=3.2,<3.3}
-
-            local ARGS=`getopt --long -o "p:d:" "$@"`
-            eval set -- "$ARGS"
-            while true
-            do
-                    case "$1" in
-                            (-p) PYTHON_VERSION=$2
-                                    shift 2 ;;
-                            (-d) DJANGO_VERSION=Django==$2
-                                    shift 2 ;;
-                            (*) break ;;
+        local ARGS=`getopt --long -o "p:d:" "$@"`
+        eval set -- "$ARGS"
+        while true
+        do
+            case "$1" in
+                (-p) PYTHON_VERSION=$2
+                        shift 2 ;;
+                (-d) DJANGO_VERSION=$2
+                        shift 2 ;;
+                (*) case "$#" in
+                        (1) echo "Missing argument!"
+                            break ;;
+                        (2) PROJECT_NAME=$2
+                            break ;;
+                        (*) echo "Too many arguments!"
+                            break ;;
                     esac
-            done
+                    break;;
+            esac
+        done
 
-            mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
-            workon $PROJECT_NAME
-            test -n ${VIRTUAL_ENV-} || {
-                echo no env, no gain >&2
+        test -z $PROJECT_NAME && {
+                echo "Script usage:"
+                echo -e "\t initproject project_name [ -p python_version -d django_version]"
+                echo -e "\t example : initproject my-django-project -p 3.10 -d 3.2"
                 return 1
-            }
+        }
 
-            pip install "$DJANGO_VERSION"
+        echo "creating \"$PROJECT_NAME\", django==$DJANGO_VERSION project for python $PYTHON_VERSION"
+
+        mkvirtualenv $PROJECT_NAME -p python"$PYTHON_VERSION"
+        workon $PROJECT_NAME
+        test -n ${VIRTUAL_ENV-} || {
+            echo no env, no gain >&2
+            return 1
+        }
+
+        pip install "Django==$DJANGO_VERSION"
 
             django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
@@ -137,3 +142,4 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
     $ initproject mon_projet -p 3.7 -d 3.2
+
