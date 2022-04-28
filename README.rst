@@ -76,17 +76,18 @@ Goodies
 
 Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'un projet::
 
-    # inits project for django-drybone project
+    # inits project for django-drybones project
     # see https://github.com/unistra/django-drybones
-    # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3.10 -d 3.2
+    # Usage initproject project_name [-p python_version] [-d django_version] [-i]
+    # example initproject my-django-project -p 3.10 -d 3.2
     initproject () {
 
         local PYTHON_VERSION=${DRY_BONES_PYTHON_VERSION:=3.10}
         local DJANGO_VERSION=${DRY_BONES_DJANGO_VERSION:="3.2"}
         local PROJECT_NAME=""
+        local INTERACTIVE_MODE=0
 
-        local ARGS=`getopt --long -o "p:d:" "$@"`
+        local ARGS=`getopt --long -o p:d:i "$@"`
         eval set -- "$ARGS"
         while true
         do
@@ -95,6 +96,9 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
                         shift 2 ;;
                 (-d) DJANGO_VERSION=$2
                         shift 2 ;;
+                (-i) INTERACTIVE_MODE=1
+                        echo interactive
+                        shift 1 ;;
                 (*) case "$#" in
                         (1) echo "Missing argument!"
                             break ;;
@@ -103,21 +107,21 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
                         (*) echo "Too many arguments!"
                             break ;;
                     esac
-                    break;;
+                    break ;;
             esac
         done
 
         test -z $PROJECT_NAME && {
-                echo "Script usage:"
-                echo -e "\t initproject project_name [ -p python_version -d django_version]"
-                echo -e "\t example : initproject my-django-project -p 3.10 -d 3.2"
+                echo -e "Script usage:\n" \
+                "\t initproject project_name [-p python_version] [-d django_version] [-i]\n" \
+                "\t example : initproject my-django-project -p 3.10 -d 3.2"
                 return 1
         }
 
-        echo "creating \"$PROJECT_NAME\", django==$DJANGO_VERSION project for python $PYTHON_VERSION"
+        echo "creating \"$PROJECT_NAME\", django $DJANGO_VERSION project for python $PYTHON_VERSION"
 
         mkvirtualenv $PROJECT_NAME -p python"$PYTHON_VERSION"
-        workon $PROJECT_NAME
+
         test -n ${VIRTUAL_ENV-} || {
             echo no env, no gain >&2
             return 1
@@ -125,14 +129,21 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
         pip install "Django==$DJANGO_VERSION"
 
-            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
-            cd $PROJECT_NAME
-            setvirtualenvproject $VIRTUAL_ENV $PWD
-            echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
-            echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
-            workon $PROJECT_NAME
-            chmod +x manage.py
-            pip install -r requirements/dev.txt
+        if test $INTERACTIVE_MODE -eq 0
+            then django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip \
+                --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+                echo "interactive mode off"
+            else echo "interactive mode ON"
+                return 0
+        fi
+
+        cd $PROJECT_NAME
+        setvirtualenvproject $VIRTUAL_ENV $PWD
+        echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
+        echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
+        workon $PROJECT_NAME
+        chmod +x manage.py
+        pip install -r requirements/dev.txt
     }
 
 Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
