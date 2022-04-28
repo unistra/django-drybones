@@ -2,8 +2,8 @@
 Django-drybones
 ========================
 
-.. image:: https://landscape.io/github/unistra/django-drybones/django3.2/landscape.svg?style=flat
-   :target: https://landscape.io/github/unistra/django-drybones/django3.2
+.. image:: https://landscape.io/github/unistra/django-drybones/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/unistra/django-drybones/master
    :alt: Code Health
 
 Template pour les projets Django 3.2.
@@ -35,7 +35,7 @@ Création du projet
 
 Pour créer le nouveau projet en utilisant le template::
 
-    $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/django3.2.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
+    $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
 
 Configuration du projet
 -----------------------
@@ -120,7 +120,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
             pip install "$DJANGO_VERSION"
 
-            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/django3.2.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
+            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
             cd $PROJECT_NAME
             setvirtualenvproject $VIRTUAL_ENV $PWD
             echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
