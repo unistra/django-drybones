@@ -81,7 +81,6 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # Usage initproject project_name [-p python_version] [-d django_version] [-i]
     # example initproject my-django-project -p 3.10 -d 3.2
     initproject () {
-
         local PYTHON_VERSION=${DRY_BONES_PYTHON_VERSION:=3.10}
         local DJANGO_VERSION=${DRY_BONES_DJANGO_VERSION:="3.2"}
         local PROJECT_NAME=""
@@ -145,6 +144,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
         chmod +x manage.py
         pip install -r requirements/dev.txt
     }
+
 
 Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 

@@ -1,0 +1,19 @@
+version: "3"
+services:
+  db:
+    image: "postgres_12_fr"
+    build: ./docker
+    container_name: {{ project_name }}_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD={{ project_name }}
+      - POSTGRES_USER={{ project_name }}
+      - POSTGRES_DB={{ project_name }}
+    ports:
+      - "5432:5432"
+    volumes:
+      - {{ project_name }}_db:/var/lib/postgresql/data
+
+volumes:
+  {{ project_name }}_db:
+    driver: local
