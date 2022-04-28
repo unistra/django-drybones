@@ -56,10 +56,11 @@ env.verbose_output = False  # True for verbose output
 env.no_circus_web = True  # Avoid using circusweb dashboard (buggy in last releases)
 # env.circus_backend = 'gevent' # name of circus backend to use
 
-env.chaussette_backend = 'waitress'  # name of chaussette backend to use. You need to add this backend in the app requirement file.
+# name of chaussette backend to use. You need to add this backend in the app requirement file.
+env.chaussette_backend = 'waitress'
 
-
-# env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
+# add directive(s) to nginx config file in location part
+# env.nginx_location_extra_directives = ['proxy_read_timeout 120']
 # env.nginx_start_confirmation = True # if True when nginx is not started
 # needs confirmation to start it.
 
