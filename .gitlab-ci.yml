@@ -1,0 +1,22 @@
+stages:
+  - test
+
+services:
+  - postgres
+
+variables:
+  POSTGRES_DB: {{ project_name }}-test
+  POSTGRES_USER: {{ project_name }}
+  POSTGRES_PASSWORD: {{ project_name }}
+  DEFAULT_DB_HOST: postgres
+
+before_script:
+  - apt-get update && apt-get install -y build-essential libpq-dev libldap2-dev libsasl2-dev python-dev libssl-dev
+
+unittest:
+  stage: test
+  tags:
+    - python3.10 # TODO update with chosen version
+  script:
+    - pip3 install -r requirements/dev.txt
+    - tox -e py310
