@@ -79,7 +79,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3.7 -d 3.2
+    # example initproject -p 3.8 -d 3.2
     initproject () {
 
             # TODO: be sure those variables are required by vitualenv* stuff
@@ -91,7 +91,7 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
             # TODO: split this message up: make it readable
 
             test -z $1 && {
-                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.7 -d 3.2 "
+                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.8 -d 3.2 "
                     return 1
             }
 
@@ -136,4 +136,4 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3.7 -d 3.2
+    $ initproject mon_projet -p 3.8 -d 3.2
