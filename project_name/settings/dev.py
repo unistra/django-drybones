@@ -1,5 +1,5 @@
 from os import environ
-from os.path import normpath
+from pathlib import Path
 
 from .base import *
 
@@ -47,7 +47,10 @@ ALLOWED_HOSTS = ['*']
 # Log configuration #
 #####################
 
-LOGGING['handlers']['file']['filename'] = environ.get('LOG_DIR', normpath(join('/tmp', '%s.log' % SITE_NAME)))
+LOGGING['handlers']['file']['filename'] = environ.get(
+    'LOG_DIR',
+    Path('/tmp').resolve(strict=True) / f'{SITE_NAME}.log',
+)
 LOGGING['handlers']['file']['level'] = 'DEBUG'
 
 for logger in LOGGING['loggers']:
