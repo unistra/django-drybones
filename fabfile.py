@@ -10,26 +10,27 @@ from fabric.api import env, execute, roles, task
 
 # edit config here !
 
-env.remote_owner = 'django'  # remote server user
-env.remote_group = 'di'  # remote server group
+env.remote_owner = "django"  # remote server user
+env.remote_group = "di"  # remote server group
 
-env.application_name = '{{ project_name }}'   # name of webapp
-env.root_package_name = '{{ project_name }}'  # name of app in webapp
+env.application_name = "{{ project_name }}"  # name of webapp
+env.root_package_name = "{{ project_name }}"  # name of app in webapp
 
-env.remote_home = '/home/django'  # remote home root
-env.remote_python_version = '3.8'  # python version
-env.remote_virtualenv_root = join(env.remote_home, '.virtualenvs')  # venv root
-env.remote_virtualenv_dir = join(env.remote_virtualenv_root,
-                                 env.application_name)  # venv for webapp dir
+env.remote_home = "/home/django"  # remote home root
+env.remote_python_version = "3.11"  # python version
+env.remote_virtualenv_root = join(env.remote_home, ".virtualenvs")  # venv root
+env.remote_virtualenv_dir = join(
+    env.remote_virtualenv_root, env.application_name
+)  # venv for webapp dir
 # git repository url
-env.remote_repo_url = 'git@git.net:{{ project_name }}.git'
-env.local_tmp_dir = '/tmp'  # tmp dir
-env.remote_static_root = '/var/www/static/'  # root of static files
-env.locale = 'fr_FR.UTF-8'  # locale to use on remote
-env.timezone = 'Europe/Paris'  # timezone for remote
+env.remote_repo_url = "git@git.net:{{ project_name }}.git"
+env.local_tmp_dir = "/tmp"  # tmp dir
+env.remote_static_root = "/var/www/static/"  # root of static files
+env.locale = "fr_FR.UTF-8"  # locale to use on remote
+env.timezone = "Europe/Paris"  # timezone for remote
 env.keep_releases = 2  # number of old releases to keep before cleaning
-env.extra_goals = ['preprod']  # add extra goal(s) to defaults (test,dev,prod)
-env.dipstrap_version = 'latest'
+env.extra_goals = ["preprod"]  # add extra goal(s) to defaults (test,dev,prod)
+env.dipstrap_version = "latest"
 env.verbose_output = False  # True for verbose output
 
 # optional parameters
@@ -56,7 +57,7 @@ env.verbose_output = False  # True for verbose output
 env.no_circus_web = True  # Avoid using circusweb dashboard (buggy in last releases)
 # env.circus_backend = 'gevent' # name of circus backend to use
 
-env.chaussette_backend = 'waitress'  # name of chaussette backend to use. You need to add this backend in the app requirement file.
+env.chaussette_backend = "waitress"  # name of chaussette backend to use. You need to add this backend in the app requirement file.
 
 
 # env.nginx_location_extra_directives = ['proxy_read_timeout 120'] # add directive(s) to nginx config file in location part
@@ -68,19 +69,19 @@ env.chaussette_backend = 'waitress'  # name of chaussette backend to use. You ne
 def dev():
     """Define dev stage"""
     env.roledefs = {
-        'web': ['192.168.1.2'],
-        'lb': ['192.168.1.2'],
+        "web": ["192.168.1.2"],
+        "lb": ["192.168.1.2"],
     }
-    env.user = 'vagrant'
-    env.backends = env.roledefs['web']
-    env.server_name = '{{ project_name }}-dev.net'
-    env.short_server_name = '{{ project_name }}-dev'
-    env.static_folder = '/site_media/'
-    env.server_ip = '192.168.1.2'
+    env.user = "vagrant"
+    env.backends = env.roledefs["web"]
+    env.server_name = "{{ project_name }}-dev.net"
+    env.short_server_name = "{{ project_name }}-dev"
+    env.static_folder = "/site_media/"
+    env.server_ip = "192.168.1.2"
     env.no_shared_sessions = False
     env.server_ssl_on = False
-    env.goal = 'dev'
-    env.socket_port = '8001'
+    env.goal = "dev"
+    env.socket_port = "8001"
     env.map_settings = {}
     execute(build_env)
 
@@ -89,22 +90,22 @@ def dev():
 def test():
     """Define test stage"""
     env.roledefs = {
-        'web': ['{{ project_name }}-test.net'],
-        'lb': ['lb.{{ project_name }}-test.net'],
+        "web": ["{{ project_name }}-test.net"],
+        "lb": ["lb.{{ project_name }}-test.net"],
     }
     # env.user = 'root'  # user for ssh
-    env.backends = ['127.0.0.1']
-    env.server_name = '{{ project_name }}-test.net'
-    env.short_server_name = '{{ project_name }}-test'
-    env.static_folder = '/site_media/'
-    env.server_ip = ''
+    env.backends = ["127.0.0.1"]
+    env.server_name = "{{ project_name }}-test.net"
+    env.short_server_name = "{{ project_name }}-test"
+    env.static_folder = "/site_media/"
+    env.server_ip = ""
     env.no_shared_sessions = False
     env.server_ssl_on = True
-    env.path_to_cert = '/etc/ssl/certs/{{ project_name }}.net.pem'
-    env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
-    env.goal = 'test'
-    env.socket_port = ''
-    env.socket_host = '127.0.0.1'
+    env.path_to_cert = "/etc/ssl/certs/{{ project_name }}.net.pem"
+    env.path_to_cert_key = "/etc/ssl/private/{{ project_name }}.net.key"
+    env.goal = "test"
+    env.socket_port = ""
+    env.socket_host = "127.0.0.1"
     env.map_settings = {}
     execute(build_env)
 
@@ -113,27 +114,27 @@ def test():
 def preprod():
     """Define preprod stage"""
     env.roledefs = {
-        'web': ['{{ project_name }}-pprd.net'],
-        'lb': ['lb.{{ project_name }}-pprd.net'],
+        "web": ["{{ project_name }}-pprd.net"],
+        "lb": ["lb.{{ project_name }}-pprd.net"],
     }
     # env.user = 'root'  # user for ssh
-    env.backends = env.roledefs['web']
-    env.server_name = '{{ project_name }}-pprd.net'
-    env.short_server_name = '{{ project_name }}-pprd'
-    env.static_folder = '/site_media/'
-    env.server_ip = ''
+    env.backends = env.roledefs["web"]
+    env.server_name = "{{ project_name }}-pprd.net"
+    env.short_server_name = "{{ project_name }}-pprd"
+    env.static_folder = "/site_media/"
+    env.server_ip = ""
     env.no_shared_sessions = False
     env.server_ssl_on = True
-    env.path_to_cert = '/etc/ssl/certs/{{ project_name }}.net.pem'
-    env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
-    env.goal = 'preprod'
-    env.socket_port = ''
+    env.path_to_cert = "/etc/ssl/certs/{{ project_name }}.net.pem"
+    env.path_to_cert_key = "/etc/ssl/private/{{ project_name }}.net.key"
+    env.goal = "preprod"
+    env.socket_port = ""
     env.map_settings = {
-        'default_db_host': "DATABASES['default']['HOST']",
-        'default_db_user': "DATABASES['default']['USER']",
-        'default_db_password': "DATABASES['default']['PASSWORD']",
-        'default_db_name': "DATABASES['default']['NAME']",
-        'secret_key': "SECRET_KEY",
+        "default_db_host": "DATABASES['default']['HOST']",
+        "default_db_user": "DATABASES['default']['USER']",
+        "default_db_password": "DATABASES['default']['PASSWORD']",
+        "default_db_name": "DATABASES['default']['NAME']",
+        "secret_key": "SECRET_KEY",
     }
     execute(build_env)
 
@@ -142,40 +143,41 @@ def preprod():
 def prod():
     """Define prod stage"""
     env.roledefs = {
-        'web': ['{{ project_name }}.net'],
-        'lb': ['lb.{{ project_name }}.net']
+        "web": ["{{ project_name }}.net"],
+        "lb": ["lb.{{ project_name }}.net"],
     }
     # env.user = 'root'  # user for ssh
-    env.backends = env.roledefs['web']
-    env.server_name = '{{ project_name }}.net'
-    env.short_server_name = '{{ project_name }}'
-    env.static_folder = '/site_media/'
-    env.server_ip = ''
+    env.backends = env.roledefs["web"]
+    env.server_name = "{{ project_name }}.net"
+    env.short_server_name = "{{ project_name }}"
+    env.static_folder = "/site_media/"
+    env.server_ip = ""
     env.no_shared_sessions = False
     env.server_ssl_on = True
-    env.path_to_cert = '/etc/ssl/certs/{{ project_name }}.net.pem'
-    env.path_to_cert_key = '/etc/ssl/private/{{ project_name }}.net.key'
-    env.goal = 'prod'
-    env.socket_port = ''
+    env.path_to_cert = "/etc/ssl/certs/{{ project_name }}.net.pem"
+    env.path_to_cert_key = "/etc/ssl/private/{{ project_name }}.net.key"
+    env.goal = "prod"
+    env.socket_port = ""
     env.map_settings = {
-        'default_db_host': "DATABASES['default']['HOST']",
-        'default_db_user': "DATABASES['default']['USER']",
-        'default_db_password': "DATABASES['default']['PASSWORD']",
-        'default_db_name': "DATABASES['default']['NAME']",
-        'secret_key': "SECRET_KEY",
+        "default_db_host": "DATABASES['default']['HOST']",
+        "default_db_user": "DATABASES['default']['USER']",
+        "default_db_password": "DATABASES['default']['PASSWORD']",
+        "default_db_name": "DATABASES['default']['NAME']",
+        "secret_key": "SECRET_KEY",
     }
     execute(build_env)
+
 
 # dont touch after that point if you don't know what you are doing !
 
 
 @task
 def tag(version_number):
-    """ Set the version to deploy to `version_number`. """
+    """Set the version to deploy to `version_number`."""
     execute(pydiploy.prepare.tag, version=version_number)
 
 
-@roles(['web', 'lb'])
+@roles(["web", "lb"])
 def build_env():
     execute(pydiploy.prepare.build_env)
 
@@ -187,14 +189,14 @@ def pre_install():
     execute(pre_install_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def pre_install_backend():
     """Setup server for backend"""
-    execute(pydiploy.django.pre_install_backend, commands='/usr/bin/rsync')
+    execute(pydiploy.django.pre_install_backend, commands="/usr/bin/rsync")
 
 
-@roles('lb')
+@roles("lb")
 @task
 def pre_install_frontend():
     """Setup server for frontend"""
@@ -208,21 +210,21 @@ def deploy(update_pkg=False):
     execute(deploy_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def deploy_backend(update_pkg=False):
     """Deploy code on server"""
     execute(pydiploy.django.deploy_backend, update_pkg)
 
 
-@roles('lb')
+@roles("lb")
 @task
 def deploy_frontend():
     """Deploy static files on load balancer"""
     execute(pydiploy.django.deploy_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def rollback():
     """Rollback code (current-1 release)"""
@@ -236,26 +238,30 @@ def post_install():
     execute(post_install_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def post_install_backend():
     """Post installation of backend"""
     execute(pydiploy.django.post_install_backend)
 
 
-@roles('lb')
+@roles("lb")
 @task
 def post_install_frontend():
     """Post installation of frontend"""
     execute(pydiploy.django.post_install_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def install_postgres(user=None, dbname=None, password=None):
     """Install Postgres on remote"""
-    execute(pydiploy.django.install_postgres_server,
-            user=user, dbname=dbname, password=password)
+    execute(
+        pydiploy.django.install_postgres_server,
+        user=user,
+        dbname=dbname,
+        password=password,
+    )
 
 
 @task
@@ -265,36 +271,36 @@ def reload():
     execute(reload_backend)
 
 
-@roles('lb')
+@roles("lb")
 @task
 def reload_frontend():
     execute(pydiploy.django.reload_frontend)
 
 
-@roles('web')
+@roles("web")
 @task
 def reload_backend():
     execute(pydiploy.django.reload_backend)
 
 
-@roles('lb')
+@roles("lb")
 @task
 def set_down():
-    """ Set app to maintenance mode """
+    """Set app to maintenance mode"""
     execute(pydiploy.django.set_app_down)
 
 
-@roles('lb')
+@roles("lb")
 @task
 def set_up():
-    """ Set app to up mode """
+    """Set app to up mode"""
     execute(pydiploy.django.set_app_up)
 
 
-@roles('web')
+@roles("web")
 @task
 def custom_manage_cmd(cmd):
-    """ Execute custom command in manage.py """
+    """Execute custom command in manage.py"""
     execute(pydiploy.django.custom_manage_command, cmd)
 
 

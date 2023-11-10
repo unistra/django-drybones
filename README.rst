@@ -6,7 +6,7 @@ Django-drybones
    :target: https://landscape.io/github/unistra/django-drybones/master
    :alt: Code Health
 
-Template pour les projets Django 3.2.
+Template pour les projets Django 4.2.
 
 Prérequis
 ===================
@@ -28,7 +28,7 @@ Installation de Django
 
 Pour installer Django dans l'environnement virtuel::
 
-    $ pip install "Django>=3.2,<3.3"
+    $ pip install "Django>=4.2,<5"
 
 Création du projet
 -------------------
@@ -79,24 +79,24 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [ -p python_version -d django_version]
-    # example initproject -p 3.8 -d 3.2
+    # example initproject -p 3.11 -d 4.2
     initproject () {
 
             # TODO: be sure those variables are required by vitualenv* stuff
 
-            declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.4}
+            declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.12}
             declare -g PYTHON_PATH=
             declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
 
             # TODO: split this message up: make it readable
 
             test -z $1 && {
-                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.8 -d 3.2 "
+                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.12 -d 4.2 "
                     return 1
             }
 
             local PROJECT_NAME=$1
-            local DJANGO_VERSION=${DJANGO_VERSION:=Django>=3.2,<3.3}
+            local DJANGO_VERSION=${DJANGO_VERSION:=Django>=4.2,<5}
 
             local ARGS=`getopt --long -o "p:d:" "$@"`
             eval set -- "$ARGS"
@@ -136,4 +136,4 @@ Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-    $ initproject mon_projet -p 3.8 -d 3.2
+    $ initproject mon_projet -p 3.12 -d 4.2
