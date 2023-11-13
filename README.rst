@@ -2,7 +2,9 @@
 Django-drybones
 ========================
 
-!(https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+.. image:: https://landscape.io/github/unistra/django-drybones/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/unistra/django-drybones/master
+   :alt: Code Health
 
 Template pour les projets Django 4.2.
 
@@ -19,41 +21,31 @@ Création de l'environnement virtuel
 
 Pour créer l'environnement virtuel, se placer dans le répertoire d'installation du projet::
 
-```sh
     $ mkvirtualenv myapp
-```
 
 Installation de Django
 ----------------------
 
 Pour installer Django dans l'environnement virtuel::
 
-```sh
     $ pip install "Django>=4.2,<5"
-```
 
 Création du projet
 -------------------
 
 Pour créer le nouveau projet en utilisant le template de la dernière version de django supportée::
 
-```sh
-
     $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
-```
 
 Pour une version spécifique::
 
-```sh
     $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/refs/heads/django3.2.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
-```
 
 Configuration du projet
 -----------------------
 
 Pour configurer le projet dans l'environnement virtuel::
 
-```sh
     $ cd myapp
     $ setvirtualenvproject $VIRTUAL_ENV $(pwd)
 
@@ -65,35 +57,29 @@ Pour configurer le projet dans l'environnement virtuel::
 
     # Rechargement de l'environnement virtuel
     $ workon myapp
-```
 
 Installation des librairies
 ---------------------------
 
 Pour installer les librairies ::
 
-```sh
     $ cdproject
     $ pip install -r requirements/dev.txt
-```
 
 Lancer le serveur de développement
 ----------------------------------
 
 Pour finaliser l'installation et lancer le serveur::
 
-```sh
     $ chmod u+x manage.py
     $ ./manage.py migrate
     $ ./manage.py runserver
-```
 
 Goodies
 -------
 
 Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'un projet::
 
-```sh
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
     # Usage initproject project_name [-p python_version] [-d django_version]
@@ -148,16 +134,11 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
         chmod +x manage.py
         pip install -r requirements/dev.txt
     }
-```
 
 Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
 
-```sh
     $ initproject mon_projet
-```
 
 pour preciser la version de python et/ou de django -p pour la version de python et -d pour la version de django::
 
-```sh
     $ initproject mon_projet -p 3.12 -d 4.2
-```
