@@ -2,10 +2,6 @@
 Django-drybones
 ========================
 
-.. image:: https://landscape.io/github/unistra/django-drybones/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/unistra/django-drybones/master
-   :alt: Code Health
-
 Template pour les projets Django 4.2.
 
 Prérequis
