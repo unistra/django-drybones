@@ -33,9 +33,13 @@ Pour installer Django dans l'environnement virtuel::
 Création du projet
 -------------------
 
-Pour créer le nouveau projet en utilisant le template::
+Pour créer le nouveau projet en utilisant le template de la dernière version de django supportée::
 
     $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
+
+Pour une version spécifique::
+
+    $ django-admin startproject --template=https://github.com/unistra/django-drybones/archive/refs/heads/django3.2.zip --extension=html,rst,ini,coveragerc --name=Makefile myapp
 
 Configuration du projet
 -----------------------
@@ -78,56 +82,57 @@ Vous pouvez ajouter une fonction à vos dotfiles pour faciliter la création d'u
 
     # inits project for django-drybone project
     # see https://github.com/unistra/django-drybones
-    # Usage initproject project_name [ -p python_version -d django_version]
+    # Usage initproject project_name [-p python_version] [-d django_version]
     # example initproject -p 3.11 -d 4.2
-    initproject () {
-
-            # TODO: be sure those variables are required by vitualenv* stuff
-
-            declare -g PYTHON_VERSION=${PYTHON_VERSION:=3.12}
-            declare -g PYTHON_PATH=
-            declare -g PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
-
-            # TODO: split this message up: make it readable
-
-            test -z $1 && {
-                    echo -e "Missing argument. Script usage:\n" "   initproject project_name [ -p python_version -d django_version]" "   example : initproject -p 3.12 -d 4.2 "
-                    return 1
-            }
-
-            local PROJECT_NAME=$1
-            local DJANGO_VERSION=${DJANGO_VERSION:=Django>=4.2,<5}
-
-            local ARGS=`getopt --long -o "p:d:" "$@"`
-            eval set -- "$ARGS"
-            while true
-            do
-                    case "$1" in
-                            (-p) PYTHON_VERSION=$2
-                                    shift 2 ;;
-                            (-d) DJANGO_VERSION=Django==$2
-                                    shift 2 ;;
-                            (*) break ;;
-                    esac
-            done
-
-            mkvirtualenv $PROJECT_NAME -p "$PYTHON_VERSION_PATH"
-            workon $PROJECT_NAME
-            test -n ${VIRTUAL_ENV-} || {
-                echo no env, no gain >&2
+    function initproject () {
+        unset PYTHON_VERSION
+        unset DJANGO_VERSION
+        declare -g PYTHON_VERSION
+        declare -g PYTHON_PATH=
+        declare -g PYTHON_VERSION_PATH
+        local ARGS
+        test -z "$1" && {
+                echo -e "Missing argument. Script usage:\n" "  initproject project_name [-p python_version] [-d django_version]" "\n   example : initproject -p 3.11 -d 3.2 "
                 return 1
-            }
-
-            pip install "$DJANGO_VERSION"
-
-            django-admin startproject --template=https://github.com/unistra/django-drybones/archive/master.zip --extension=html,rst,ini,coveragerc --name=Makefile $PROJECT_NAME
-            cd $PROJECT_NAME
-            setvirtualenvproject $VIRTUAL_ENV $PWD
-            echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> $VIRTUAL_ENV/bin/postactivate
-            echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate
-            workon $PROJECT_NAME
-            chmod +x manage.py
-            pip install -r requirements/dev.txt
+        } || PROJECT_NAME=$1
+        ARGS=$(getopt --long -o "p:d:" "$@")
+        eval set -- "$ARGS"
+        while true
+        do
+                case "$1" in
+                        (-p) PYTHON_VERSION=$2
+                                shift 2 ;;
+                        (-d) DJANGO_VERSION=$2
+                                shift 2 ;;
+                        (*) break ;;
+                esac
+        done
+        PYTHON_VERSION=${PYTHON_VERSION:=3.10}
+        DJANGO_VERSION=${DJANGO_VERSION:=4.2}
+        PYTHON_VERSION_PATH=$( which python$PYTHON_VERSION )
+        mkvirtualenv "$PROJECT_NAME" -p "$PYTHON_VERSION_PATH" >&2 || {
+            echo "Virtualenv creation failed" >&2
+            return 1
+        }
+        workon "$PROJECT_NAME"
+        pip install "Django==$DJANGO_VERSION" || {
+            echo "Django installation failed" >&2
+            return 1
+        }
+        django-admin startproject --template="https://github.com/unistra/django-drybones/archive/refs/heads/django$DJANGO_VERSION.zip" --extension=html,rst,ini,coveragerc --name=Makefile "$PROJECT_NAME" >&2 || {
+            echo "Project creation failed (maybe wrong django version)" >&2
+            return 1
+        }
+        cd "$PROJECT_NAME" || {
+            echo "No app directory" >&2
+            return 1
+        }
+        setvirtualenvproject "$VIRTUAL_ENV" "$PWD"
+        echo "export DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings.dev" >> "$VIRTUAL_ENV/bin/postactivate"
+        echo "unset DJANGO_SETTINGS_MODULE" >> "$VIRTUAL_ENV/bin/postdeactivate"
+        workon "$PROJECT_NAME"
+        chmod +x manage.py
+        pip install -r requirements/dev.txt
     }
 
 Et ensuite pour creer le virtualenv, installer django et initialiser le projet::
