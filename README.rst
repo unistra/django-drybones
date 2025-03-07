@@ -10,18 +10,14 @@ pipx et python (dans cette doc, **python3.12**, dépendamment des besoins la ver
 
     $ sudo apt install pipx
 
+Pour python, je recommande l'utilisation de **pyenv** dans la mesure où il permet facilement de passer d'une version à l'autre
+
 Procédure
 ===================
 Pour générer un template pour le projet "**myapp**" :
 
 Initialiser le projet Django
 ----------------------------
-Pour créer l'environnement virtuel, se placer dans le répertoire d'installation du projet::
-
-    $ mkvirtualenv myapp
-
-Installation de Django
-----------------------
 Tout d'abord, installez la version requise de *django* (à l'heure de la rédaction de ce document, la **4.2.16**) via pipx ::
 
     $ pipx install django==4.2.16
@@ -150,7 +146,7 @@ Créez le fichier *.env* à la racine de projet, avec le contenu suivant ::
 
     DJANGO_SETTINGS_MODULE="myapp.settings.dev"
 
-Vous pouvez spécifier les valeurs des variables d'environnement dans ce même fichier plutôt dans les settings de votre projet (dans settings/dev.py pour la phase de dev)
+Vous pouvez spécifier les valeurs des variables d'environnement dans ce même fichier plutôt que dans les settings de votre projet (dans settings/dev.py pour la phase de dev)
 
 Lancez un docker compose (en mode détaché ou pas) afin de démarrer l'image postgresql ::
 
@@ -175,7 +171,8 @@ Installez pre-commit ::
     $ pipx install pre-commit
 
 Puis créez le fichier *.pre-commit-config.yaml* à la racine de votre projet. Pour le remplissage, vous pouvez vous aider avec :
-* La `doc officielle <https://pre-commit.com/>`_`
+
+* La `doc officielle <https://pre-commit.com/>`_
 * Un fichier de config existant, celui d'`octant <https://git.unistra.fr/di/cesar/octant/back/-/blob/develop/.pre-commit-config.yaml?ref_type=heads>`_ par exemple
 
 Il suffira ensuite d'installer les hooks correspondants (depuis la racine du projet) ::
@@ -188,8 +185,8 @@ Tester la configuration du projet
 Afin de vérifier que la configuration de votre projet s'est bien passée, vous pouvez lancer l'application ::
 
     $ poetry shell
-    $ python manage.py runserver (poetry version supérieure à la 2.0.0)
+    $ python manage.py runserver (poetry version inférieure à la 2.0.0)
 
     OU
 
-    $ poetry run manage.py runserver (poetry version inférieure à la 2.0.0)
+    $ poetry run manage.py runserver (poetry version supérieure à la 2.0.0)
