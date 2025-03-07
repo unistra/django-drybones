@@ -157,7 +157,9 @@ Lancez un docker compose (en mode détaché ou pas) afin de démarrer l'image po
     $ docker compose up
 
 Vous pouvez maintenant  initialiser la base de données :
+
 * Utilisez votre environnement virtuel ::
+
     $ poetry shell (pour les versions de poetry antérieure à la 2.0.0, inutile autrement)
 
 * Puis exécutez la commande *migrate* ::
