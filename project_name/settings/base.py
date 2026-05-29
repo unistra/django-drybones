@@ -15,7 +15,6 @@ SITE_NAME = DJANGO_ROOT.name
 #######################
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 
 ##########################
@@ -181,6 +180,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
             ],
+            'debug': DEBUG,
         },
     },
 ]
