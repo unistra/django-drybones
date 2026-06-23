@@ -25,13 +25,16 @@ DEBUG = True
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': environ.get('DEFAULT_DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': environ.get('DEFAULT_DB_NAME', '{{ project_name }}'),
-        'USER': environ.get('DEFAULT_DB_USER', '{{ project_name }}'),
-        'PASSWORD': environ.get('DEFAULT_DB_PASSWORD', '{{ project_name }}'),
-        'HOST': environ.get('DEFAULT_DB_HOST', 'localhost'),
-        'PORT': environ.get('DEFAULT_DB_PORT', '5432'),
+    "default": {
+        "ENGINE": environ.get("DEFAULT_DB_ENGINE", "django.db.backends.postgresql"),
+        "NAME": environ.get("DEFAULT_DB_NAME", "{{ project_name }}"),
+        "USER": environ.get("DEFAULT_DB_USER", "{{ project_name }}"),
+        "PASSWORD": environ.get("DEFAULT_DB_PASSWORD", "{{ project_name }}"),
+        "HOST": environ.get("DEFAULT_DB_HOST", "localhost"),
+        "PORT": environ.get("DEFAULT_DB_PORT", "5432"),
+        "OPTIONS": {
+            "gssencmode": "disable",
+        },
     }
 }
 
@@ -40,21 +43,21 @@ DATABASES = {
 # Allowed hosts & Security #
 ############################
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 #####################
 # Log configuration #
 #####################
 
-LOGGING['handlers']['file']['filename'] = environ.get(
-    'LOG_DIR',
-    Path('/tmp').resolve(strict=True) / f'{SITE_NAME}.log',
+LOGGING["handlers"]["file"]["filename"] = environ.get(
+    "LOG_DIR",
+    Path("/tmp").resolve(strict=True) / f"{SITE_NAME}.log",
 )
-LOGGING['handlers']['file']['level'] = 'DEBUG'
+LOGGING["handlers"]["file"]["level"] = "DEBUG"
 
-for logger in LOGGING['loggers']:
-    LOGGING['loggers'][logger]['level'] = 'DEBUG'
+for logger in LOGGING["loggers"]:
+    LOGGING["loggers"][logger]["level"] = "DEBUG"
 
 
 ###########################
@@ -62,8 +65,8 @@ for logger in LOGGING['loggers']:
 ###########################
 
 INSTALLED_APPS += [
-    'coverage',
-    'debug_toolbar',
+    "coverage",
+    "debug_toolbar",
 ]
 
 
@@ -71,8 +74,8 @@ INSTALLED_APPS += [
 # Dipstrap #
 ############
 
-DIPSTRAP_VERSION = environ.get('DIPSTRAP_VERSION', 'latest')
-DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
+DIPSTRAP_VERSION = environ.get("DIPSTRAP_VERSION", "latest")
+DIPSTRAP_STATIC_URL += "%s/" % DIPSTRAP_VERSION
 
 
 #################
@@ -81,6 +84,6 @@ DIPSTRAP_STATIC_URL += '%s/' % DIPSTRAP_VERSION
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 MIDDLEWARE += [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
-INTERNAL_IPS = ['127.0.0.1', '0.0.0.0']
+INTERNAL_IPS = ["127.0.0.1", "0.0.0.0"]
